@@ -13,7 +13,8 @@ article{margin:0 0 30px 0;
 
 /*diubah */
 header{margin:50 50 10px;
-	text-align:center;}
+	/*text-align:right;*/
+	}
 nav{margin:0 0 20px 0;}
 #page{display:block;
 	width:940px;
