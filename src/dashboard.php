@@ -6,6 +6,33 @@
 	<![endif]-->
 	<title>ToDo</title>
 	<link rel="stylesheet" type="text/css" media="all" href="css.css" />
+	<script>
+		function showUser(str)
+		{
+			if (str=="")
+			{
+			document.getElementById("tasklist").innerHTML="";
+			return;
+			} 
+			if (window.XMLHttpRequest)
+			{// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+			}
+			else
+			{// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange=function()
+			{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+			document.getElementById("tasklist").innerHTML=xmlhttp.responseText;
+			}
+			}
+			xmlhttp.open("GET","getcateg.php?q="+str,true);
+			xmlhttp.send();
+		}
+	</script>
 </head>
 
 <body>
@@ -26,8 +53,8 @@
 
 		<nav id="access" role="navigation">
 		<ul class="menu">
-			<li class="menu-item current_page_item"><a href="dashboard.html">Dashboard</a></li>
-			<li class="menu-item"><a href="profil.html">Profile</a></li>
+			<li class="menu-item current_page_item"><a href="dashboard.php">Dashboard</a></li>
+			<li class="menu-item"><a href="profil.php">Profile</a></li>
 		
 		</ul>
 		</nav>
@@ -43,9 +70,11 @@
 						</header>
 					</article>
 					
-				</div>
+				
 				<div id="tasklist">
 					<article class="post">
+					<div class="entry-content">
+					<form action="dashboard.php" method="post">
 					<?php
 							$con=mysqli_connect("localhost","progin","progin","progin_405_13510055");
 							
@@ -57,49 +86,55 @@
 							  }
 							  
 							$result = mysqli_query($con,"SELECT * FROM task");
-
+							
 							while($row = mysqli_fetch_array($result))
 							  {
-							  echo $row['nama'] . " " . $row['deadline']. " " . $row['kategori'];
-							  echo "<br />";
-							  }
+								
+								$namatask=$row[0];
+								$deadline=$row[1];
+								$status=$row[2];
+							?>
+							
+							<input name ="data" type="checkbox" value="<?php echo $namatask;?>">	
+							<?php
 
-							mysqli_close($con);
-						?>
+							echo $namatask;
+							echo "<PRE></PRE>";
+							echo $deadline;
+							echo "<PRE></PRE>";
+							echo $status;
+							echo "<PRE></PRE>";
+							
+							$result2 = mysqli_query($con,"SELECT tag FROM tagging WHERE namaTask = '".$namatask."'");
+							while($row2 = mysqli_fetch_array($result2)){
+								$tag=$row2[0];
+								echo $tag;
+								echo ", ";
+
+							}
+							
+							echo "<PRE></PRE>";
+							  }
+							?>  
+							<input type="submit" name="btnsubmit" value="DELETE TASK">
+							<input type="submit" name="btnsubmit" value="MARK DONE">
+							</form>
+							<?php 
+								mysqli_free_result($result);
+								mysqli_free_result($result2);
+								mysqli_close($con);
+							?>
+						
+				</div>	
 				</div>
 				</article>
+				</div>
 		</div>
 								
 		<div id="secondary" class="widget-area">
 			<aside class="widget">	
 			<h1 class="widget-title">Categories</h1>
-				<script>
-					function showUser(str)
-					{
-						if (str=="")
-						{
-						document.getElementById("tasklist").innerHTML="";
-						return;
-						} 
-						if (window.XMLHttpRequest)
-						{// code for IE7+, Firefox, Chrome, Opera, Safari
-						xmlhttp=new XMLHttpRequest();
-						}
-						else
-						{// code for IE6, IE5
-						xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-						}
-						xmlhttp.onreadystatechange=function()
-						{
-						if (xmlhttp.readyState==4 && xmlhttp.status==200)
-						{
-						document.getElementById("tasklist").innerHTML=xmlhttp.responseText;
-						}
-						}
-						xmlhttp.open("GET","getcateg.php?q="+str,true);
-						xmlhttp.send();
-					}
-				</script>
+				
 					<form>
 						<select name="category" onchange="showUser(this.value)">
 						<option value="">Select a category:</option>
