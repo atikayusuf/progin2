@@ -56,6 +56,15 @@
 				</div>
 				<div id="tasklist">
 					<article class="post">
+						<?php
+							$con=mysqli_connect("localhost","progin","progin","progin_405_13510055");
+
+							// Check connection
+							if (mysqli_connect_errno($con))
+							  {
+							  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+							  }
+						?>
 					<script>
 						document.getElementById("tasklist").innerHTML='<p>Buy some milk</p><p>Build a startup</p><p>Go back in time</p>';
 					</script>
