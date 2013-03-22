@@ -16,6 +16,6 @@
 		$_SESSION["login"] = $user;
 		header("Location:dashboard.php");
 	} else {
-	//	document.getElementById("salah_login").value="Username atau Password salah";
+		header("Location:index.php");
 	}
 ?>
