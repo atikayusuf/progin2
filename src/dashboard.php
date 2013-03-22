@@ -11,12 +11,12 @@
 <body>
 <header>	
 			
-			<div id="tes">
-			<br></br>
-			<h1 id="logo"><a href="dashboard.html"><img src="images/logo2.png"/></a>
-			<input name="search" size="30" type="text" maxlength="20"><img src="images/search-icon.png"/>
-			</div>
-	</header>
+<div id="tes">
+<br></br>
+<h1 id="logo"><a href="dashboard.html"><img src="images/logo2.png"/></a>
+<input name="search" size="30" type="text" maxlength="20"><img src="images/search-icon.png"/>
+</div>
+</header>
 <div id="page" >
 	<header id="branding">
 		<hgroup>
@@ -28,16 +28,9 @@
 		<ul class="menu">
 			<li class="menu-item current_page_item"><a href="dashboard.html">Dashboard</a></li>
 			<li class="menu-item"><a href="profil.html">Profile</a></li>
-			
-				<ul>
-					<li class="menu-item"><a href="index.html">Subpage 1</a></li>
-					<li class="menu-item"><a href="index.html">Subpage 2</a></li>
-					<li class="menu-item"><a href="index.html">Subpage 3</a></li>
-				</ul></li>
+		
 		</ul>
 		</nav>
-		
-		
 		
 	</header>
 
@@ -48,49 +41,73 @@
 						<header class="entry-header">
 							<h1 class="entry-title">Tasks</h1>
 						</header>
-						<div class="entry-content">
-						</div>
-						
 					</article>
 					
 				</div>
 				<div id="tasklist">
 					<article class="post">
-						<?php
+					<?php
 							$con=mysqli_connect("localhost","progin","progin","progin_405_13510055");
-
+							
+							
 							// Check connection
 							if (mysqli_connect_errno($con))
 							  {
 							  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 							  }
+							  
+							$result = mysqli_query($con,"SELECT * FROM task");
+
+							while($row = mysqli_fetch_array($result))
+							  {
+							  echo $row['nama'] . " " . $row['deadline']. " " . $row['kategori'];
+							  echo "<br />";
+							  }
+
+							mysqli_close($con);
 						?>
-					<script>
-						document.getElementById("tasklist").innerHTML='<p>Buy some milk</p><p>Build a startup</p><p>Go back in time</p>';
-					</script>
-				
 				</div>
 				</article>
-				
-					
+		</div>
+								
 		<div id="secondary" class="widget-area">
-			
-		
-			<aside class="widget">
-				
-				<h1 class="widget-title" onmouseover="mOver1(tasklist)" onmouseout="mOut(tasklist)">Categories</h1>
-		
-				<div id="catlist1" onmouseover="mOver1(categ1)" onmouseout="mOut(categ1)">
-					<b>Miscellaneous</b>
-				</div>
-				
-				<div id="catlist2" onmouseover="mOver2(categ2)" onmouseout="mOut(categ2)">
-					<b>Work</b>
-				</div>
-				
-				<div id="catlist3" onmouseover="mOver3(categ3)" onmouseout="mOut(categ3)">
-					<b>Projects</b>		
-				</div>
+			<aside class="widget">	
+			<h1 class="widget-title">Categories</h1>
+				<script>
+					function showUser(str)
+					{
+						if (str=="")
+						{
+						document.getElementById("tasklist").innerHTML="";
+						return;
+						} 
+						if (window.XMLHttpRequest)
+						{// code for IE7+, Firefox, Chrome, Opera, Safari
+						xmlhttp=new XMLHttpRequest();
+						}
+						else
+						{// code for IE6, IE5
+						xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+						}
+						xmlhttp.onreadystatechange=function()
+						{
+						if (xmlhttp.readyState==4 && xmlhttp.status==200)
+						{
+						document.getElementById("tasklist").innerHTML=xmlhttp.responseText;
+						}
+						}
+						xmlhttp.open("GET","getcateg.php?q="+str,true);
+						xmlhttp.send();
+					}
+				</script>
+					<form>
+						<select name="category" onchange="showUser(this.value)">
+						<option value="">Select a category:</option>
+						<option value="Projects">Projects</option>
+						<option value="Work">Work</option>
+						</select>
+					</form>
+
 				
 				<div class="nav-previous"><a href="#openModal">+ Add category</a>
 					<div id="openModal" class="modalDialog">
@@ -104,11 +121,7 @@
 						</div>
 					</div>
 				</div>
-				
-				
-				<script src = "myscript.js"></script>	
-				
-					
+			
 			</aside>
 		</div>
 
