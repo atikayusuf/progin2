@@ -5,18 +5,24 @@
 	<script src="html5.js" type="text/javascript"></script>
 	<![endif]-->
 	<title>ToDo</title>
+	<script src="myscript.js"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="css.css" />
 </head>
 
 <body>
+<?php
+	require_once("database.php");
+	$con = connectDatabase();
+	
+	$avatar = 
+?>
 <header>	
-			
 			<div id="tes">
 			<br></br>
 			<a href="profil.html"><img id="avatar" src="images/avatar.jpg"></a>
 			<h3 id="username"><a href="profil.html">Arief Suharsono</a>
 			<h1 id="logo"><a href="dashboard.html"><img src="images/logo2.png"/></a>
-			<form action="search.php" method="get">
+			<form name="formsearch" action="search.php" method="get">
 			<input name="searchquery" size="20" type="text" maxlength="20">
 			<select name="FilterSearch">
 			<option value="0" selected="selected">Semua</option>

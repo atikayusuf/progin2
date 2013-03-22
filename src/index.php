@@ -1,34 +1,26 @@
-<!--coba login-->
+<html>
 <head>
 	<title>ToDo</title>
+	<script src="myscript.js"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="css(2).css" />
 </head>
 
 <body>
 
 <header >	
-			
 			<div id="tes">
 			<br></br>
 			<h1 id="logo"><a href="dashboard.html"><img src="images/logo2.png"/></a>
-			<form action="search.php" method="get">
-			<input name="searchquery" size="20" type="text" maxlength="20">
-			<select name="FilterSearch">
-			<option value="0" selected="selected">Semua</option>
-			<option value="1">Username</option>
-			<option value="2">Judul Kategori</option>
-			<option value="3">Task</option></select><img src="images/search-icon.png" onclick='SearchDatabase();'>
-			</form>
-			<h3 id="logout"><a href="index.html">Logout</a>
 			</div>
 </header>
 						<div id="logincontent">
 						 <div id="formlogin">
-							<form name="login">
+							<form action="login.php" id="login" name="login" method="post">
 							<p>Username  <input type="text" name="userid"/></p>
-							<p>Password  <input type="password" name="pswrd"/></p>
-							<input type="button" onclick="parent.location='dashboard.html'" value="Login"/>
+							<p>Password  <input type="password" name="pass"/></p>
+							<input type="submit" value="Login"/>
 							<input type="reset" value="Cancel"/>
+							<div id="salah_login"></div>
 							</form>
 						</div>
 						
@@ -65,3 +57,4 @@
 		</footer>
 		
 </body>
+</html>

@@ -50,9 +50,10 @@ nav{margin:0 0 20px 0;}
 /*tambahan*/ 
 #logincontent{margin-left:20%;}
 #tes{
-	width:100%;
+	width:70%;
 	height:150px;
 	border-radius: 30px;
+	margin:auto;
 }
 #elemenkiri{margin-top:10px; margin-left:140px;}
 /* id login */
@@ -82,8 +83,9 @@ h4{font-size:1.4em;}
 /* Header */
 #site-title{font-size:2.4em;font-weight:400;margin:0;text-shadow: 5px 5px 5px;}
 #site-title a{font-weight:200;width:100%; height:20px;}
-/*diubah*/#logo {position: absolute ;top: 1%; left: 41%}
+/*diubah*/#logo {position: absolute;top: 1%; left: 35%}
 #site-description{color:#777;font-size:1.3em;font-weight:400;margin:10px 0 12px 0;}
+#avatar{top:1%;left:1%;}
 
 /* Menu */
 #access{display:block;float:left;margin:0 auto 20px;width:100%;text-align:left;}
