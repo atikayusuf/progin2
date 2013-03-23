@@ -2,6 +2,7 @@
 <head>
 	<title>ToDo</title>
 	<script src="myscript.js"></script>
+	<script src="ajax_framework.js" language="javascript"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="css(2).css" />
 </head>
 

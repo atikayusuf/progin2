@@ -3,11 +3,9 @@
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
-
-
 <head>
 	<script>
-		function loadXMLDoc()
+		function isUsernameExist()
 		{
 		var xmlhttp;
 		if (window.XMLHttpRequest)
@@ -23,15 +21,37 @@
 		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
 			{
 			document.getElementById("salah username").innerHTML=xmlhttp.responseText;
-			/*document.getElementById("salah email").innerHTML=xmlhttp.responseText;*/
 			}
 		  }
-		xmlhttp.open("GET","validation.php?username="+document.forms["form"].elements["username"].value,true);
+		xmlhttp.open("GET","validationusername.php?username="+document.forms["form"].elements["username"].value,true);
+		xmlhttp.send();
+		}
+		
+		function isEmailExist()
+		{
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		  {// code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		  }
+		else
+		  {// code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		xmlhttp.onreadystatechange=function()
+		  {
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+			document.getElementById("salah email").innerHTML=xmlhttp.responseText;
+			}
+		  }
+		xmlhttp.open("GET","validationemail.php?email="+document.forms["form"].elements["email"].value,true);
 		xmlhttp.send();
 		}
 	</script>
 	<title>ToDo</title>
 	<link rel="stylesheet" type="text/css" media="all" href="css.css" />
+</head>
 <body>
 <header>	
 			
@@ -88,8 +108,7 @@ return false;
 	var final_ext= ext.toLowerCase();*/
 	
 	
-	
-	if	(!checkusername.test(name.value))
+ 	if	(!checkusername.test(name.value))
 		{							
 		document.getElementById("salah username").innerHTML="Nama harus lebih dari 6 karakter";
 		name.focus();
@@ -152,32 +171,14 @@ return false;
 		
 	}
 	
-	else if (document.getElementById("salah username").value != "Username OK"){
-		return false;
-	}
-	
-	
 	else
-		{return true;
-			document.getElementById("submitbutton").disabled=false;
+		{
+		return true;
 		}
 	}
 		
 		
 	</script>
-	
-</head>
-
-<body>
-
-<header >	
-			
-			<div id="tes">
-			<br></br>
-			<h1 id="site-title"> 
-			</div>
-		
-	</header>
 
 		<div id="elemenkiri">
 		<div id="primary">
@@ -187,7 +188,7 @@ return false;
 							<form name="form" action="insertdatabase.php" method="post" onsubmit="return validate();"  enctype='multipart/form-data'>
 							
 							<strong >Username </strong> <br />
-							<input id="username_login" name="username" size="30" type="text" maxlength="20" onkeyup="loadXMLDoc()">
+							<input id="username_login" name="username" size="30" type="text" maxlength="20" onkeyup="isUsernameExist()">
 							<div id="salah username"> </div>
 							<br/>
 							
@@ -208,7 +209,7 @@ return false;
 							<br/>
 							
 							<strong>Email </strong> <br />
-							<input name="email" type="text" size="30" maxlength="50"> 
+							<input id="email_login" name="email" type="text" size="30" maxlength="50" onkeyup="isEmailExist()"> 
 							<div id="salah email"> </div>
 							<div id="salah samapassword"> </div>
 							<br/>
@@ -225,7 +226,7 @@ return false;
 							
 							<br/>
 							
-							<input id="submitbutton" name="submit" type="submit" value="Register Me!" disabled=true >
+							<input id="submitbutton" name="submit" type="submit" value="Register Me!">
 							</form>
 							
 	

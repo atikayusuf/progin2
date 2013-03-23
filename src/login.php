@@ -16,6 +16,7 @@
 		$_SESSION["login"] = $user;
 		header("Location:dashboard.php");
 	} else {
+		echo "login gagal, silahkan ulangi";
 		header("Location:index.php");
 	}
 ?>

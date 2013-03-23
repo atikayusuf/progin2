@@ -25,7 +25,6 @@
 			WHERE username='$user'");
 	
 	$rowavatar = mysqli_fetch_array($resultavatar);
-	echo $rowavatar['avatar'];
 ?>
 <header>	
 			<div id="tes">
@@ -34,8 +33,8 @@
 			<h3 id="username"><a href="profil.php"><?php echo "$user"?></a>
 			<h1 id="logo"><a href="dashboard.php"><img src="images/logo2.png"/></a>
 			<form name="formsearch" action="search.php" method="get">
-			<input name="searchquery" size="20" type="text" maxlength="20">
-			<select name="FilterSearch">
+			<input name="searchquery" size="30" type="text" maxlength="30">
+			<select name="filtersearch">
 			<option value="0" selected="selected">Semua</option>
 			<option value="1">Username</option>
 			<option value="2">Judul Kategori</option>
@@ -76,7 +75,7 @@
 						
 							<form action="dashboard.html" method="post">
 							<strong>New Task </strong> <br />
-							<input name="newtask" size="30" type="text" >
+							<input name="newtask" size="30" type="text" onkeyup="validasinamatask(this)" >
 							<br/><br/>
 						
 							<strong>Deadline</strong> <br />
