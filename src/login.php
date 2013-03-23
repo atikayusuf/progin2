@@ -2,21 +2,18 @@
 	require_once("database.php");
 	$con = connectDatabase();
 	
-	$user = $_POST["userid"];
-	$pass = $_POST["pass"];
+	$user = $_POST['userid'];
+	$pass = $_POST['pass'];
+        session_destroy();
+	session_start();
 	
-	$resultuser = mysqli_query($con,"SELECT `username` FROM `user`
-			WHERE username='$user'");
-	$resultpass = mysqli_query($con,"SELECT `password` FROM `user`
-			WHERE password='$pass'");
+	$resultuser = mysqli_query($con,"SELECT * FROM `user` WHERE username='$user'");
 	$rowuser = mysqli_fetch_array($resultuser);
-	$rowpassword = mysqli_fetch_array($resultpass);
-	if(($rowuser['username'] == $user) && ($rowpassword['password'] == $pass)){
-		session_start();
-		$_SESSION["login"] = $user;
+	if(($rowuser['username'] == $user) && ($rowuser['password'] == $pass)){
+		$_SESSION['namauser'] = $user;
+                ini_set("session.cookie_lifetime","2592000"); 
 		header("Location:dashboard.php");
 	} else {
-		echo "login gagal, silahkan ulangi";
 		header("Location:index.php");
 	}
 ?>
