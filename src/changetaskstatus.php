@@ -10,7 +10,7 @@ $con = connectDatabase();
 	$result = mysqli_query($con,$query);
         $row =  mysqli_fetch_array($result);
         session_start();
-        if($row['creatorTaskName']== $_SESSION['namauser']){
+        if($row['creatorTaskName']== $_SESSION['login']){
             if($row['status']=="done"){
                 $query = "UPDATE  `sharedtodolist`.`task` SET  `status` =  'undone' WHERE  `task`.`namaTask` =  '$task';";
             }else{

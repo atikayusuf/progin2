@@ -4,7 +4,7 @@
     <?php
         session_start();
         $task=$_POST['task'];
-        $user=$_SESSION['namauser'];
+        $user=$_SESSION['login'];
         $komen=$_POST['isikomentar'];
         $id=$_POST['lastid']+1;
         echo $id;

@@ -1,10 +1,18 @@
 <!DOCTYPE html>
+<?php
+	session_start();
+	$user = $_SESSION["login"];
+	if ($user == ""){
+		header("Location:index.php");
+	}
+?>
 <html dir="ltr" lang="en-US">
 
 
 <head>
 	
 	<title>ToDo</title>
+	<script src="myscript.js"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="css.css" />
 <body>
 <header>	
@@ -137,12 +145,53 @@ return false;
 
 <body>
 
-<header >	
-			
+<?php
+	require_once("database.php");
+	$con = connectDatabase();
+
+	$resultavatar = mysqli_query($con,"SELECT * FROM user
+			WHERE username='$user'");
+
+	$rowavatar = mysqli_fetch_array($resultavatar);
+?>
+<header>	
 			<div id="tes">
 			<br></br>
-			<h1 id="site-title"> 
+			<a href="profil.php"><img id="avatar" src="<?php echo $rowavatar['avatar']?>"></a>
+			<h3 id="username"><a href="profil.php"><?php echo "$user"?></a>
+			<h1 id="logo"><a href="dashboard.php"><img src="images/logo2.png"/></a>
+			<form name="formsearch" action="search-result.php" method="get">
+			<input name="searchquery" size="30" type="text" maxlength="30">
+			<select name="filtersearch">
+			<option value="0" selected="selected">Semua</option>
+			<option value="1">Username</option>
+			<option value="2">Judul Kategori</option>
+			<option value="3">Task</option></select><img src="images/search-icon.png" onclick='SearchDatabase();'>
+			</form>
+			<h3 id="logout"><a href="logout.php">Logout</a>
 			</div>
+	</header>
+<div id="page" >
+	<header id="branding">
+		<hgroup>
+			<h1 id="site-title">              <a href="dashboard.php"></a></h1>
+			<h2 id="site-description">            </h2>
+		</hgroup>
+
+		<nav id="access" role="navigation">
+		<ul class="menu">
+			<li class="menu-item"><a href="dashboard.php">Dashboard</a></li>
+			<li class="menu-item"><a href="profil.php">Profile</a></li>
+			
+				<ul>
+					<li class="menu-item"><a href="index.html">Subpage 1</a></li>
+					<li class="menu-item"><a href="index.html">Subpage 2</a></li>
+					<li class="menu-item"><a href="index.html">Subpage 3</a></li>
+				</ul></li>
+		</ul>
+		</nav>
+		
+		
 		
 	</header>
 
@@ -159,7 +208,7 @@ return false;
 					<div id="salah tidaklengkap"> </div>							
 					<br/>
 					
-					<!--<strong>Upload New Avatar</strong> <br />
+					<strong>Upload New Avatar</strong> <br />
 					<input name="foto" type="file" size="30" >
 					<div id="salah foto"> </div>
 					
@@ -167,7 +216,7 @@ return false;
 					<strong>Change Birthdate</strong> <br />
 					<input name="birth" type="date" >
 					<div id="salah tanggal"> </div>
-					<br/>-->
+					<br/>
 					
 					<strong>Change Password </strong> <br />
 					<input name="password" type="password" size="30" maxlength="20" >

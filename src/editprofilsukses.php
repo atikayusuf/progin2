@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <?php
-	/*session_start();
+	session_start();
 	$user = $_SESSION["login"];
 	if ($user == ""){
 		header("Location:index.php");
-	}*/
+	}
 ?>
 <html dir="ltr" lang="en-US">
 
@@ -181,7 +181,7 @@ return false;
 					$con= connectDatabase();
 					
 					$fullname = $_REQUEST['fullname'];
-					$birth = $_REQUEST['tanggalLahir'];
+					$birth = $_REQUEST['birth'];
 					$pass = $_REQUEST['password'];
 					
 					if (!empty($fullname)) {
@@ -198,9 +198,9 @@ return false;
 					
 					if (isset($_POST['btnsubmit'] )) {
 						$fullname = $_POST['fullname'];
-						$avatar = $_POST['avatar'];
+						$avatar = $_FILES['foto']['name'];
 						$pass = $_POST['password'];
-						$birth = $_POST['tanggalLahir'];
+						$birth = $_POST['birth'];
 
 					
 					$query= "UPDATE user SET fullname='".$fullname."',password = '".$pass."' , tanggalLahir = '".$birth."' , avatar = '".$avatar."' WHERE username='".$user."'";
