@@ -122,9 +122,9 @@
 					<article class="post">
 					<div class="entry-content">
 					
-					<form action="markdone.php" method="post">
+					
 					<?php
-							equire_once("database.php");
+							require_once("database.php");
 							$con= connectDatabase();	
 							$result = mysqli_query($con,"SELECT * FROM task");
 							

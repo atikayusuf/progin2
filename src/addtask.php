@@ -69,14 +69,14 @@
 <div id="page" >
 	<header id="branding">
 		<hgroup>
-			<h1 id="site-title">              <a href="dashboard.html"></a></h1>
+			<h1 id="site-title">              <a href="dashboard.php"></a></h1>
 			<h2 id="site-description">            </h2>
 		</hgroup>
 
 		<nav id="access" role="navigation">
 		<ul class="menu">
-			<li class="menu-item"><a href="dashboard.html">Dashboard</a></li>
-			<li class="menu-item"><a href="profil.html">Profile</a></li>
+			<li class="menu-item"><a href="dashboard.php">Dashboard</a></li>
+			<li class="menu-item"><a href="profil.php">Profile</a></li>
 			
 				<ul>
 					<li class="menu-item"><a href="index.html">Subpage 1</a></li>
