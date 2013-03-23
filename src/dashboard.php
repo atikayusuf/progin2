@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <?php
-	session_start();
+/*	session_start();
 	$user = $_SESSION["login"];
 	if ($user == ""){
 		header("Location:index.php");
-	
+	}*/
 ?>
 <html dir="ltr" lang="en-US">
 <head>
@@ -14,13 +14,9 @@
 	<title>ToDo</title>
 	<link rel="stylesheet" type="text/css" media="all" href="css.css" />
 	<script>
-		function showUser(str)
+		function showUser()
 		{
-			if (str=="")
-			{
-			document.getElementById("tasklist").innerHTML="";
-			return;
-			} 
+			var xmlhttp;
 			if (window.XMLHttpRequest)
 			{// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp=new XMLHttpRequest();
@@ -36,12 +32,17 @@
 			document.getElementById("tasklist").innerHTML=xmlhttp.responseText;
 			}
 			}
-			xmlhttp.open("GET","getcateg.php?q="+str,true);
+			xmlhttp.open("GET","getcateg.php?q="+document.forms["form"].elements["category"].value,true);
 			xmlhttp.send();
 		}
 		
 		function addcateg(str)
 		{
+			if (str=="")
+			{
+			document.getElementById("tasklist").innerHTML="";
+			return;
+			} 
 			
 			if (window.XMLHttpRequest)
 			{// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -122,7 +123,7 @@
 					<article class="post">
 					<div class="entry-content">
 					
-					
+				
 					<?php
 							require_once("database.php");
 							$con= connectDatabase();	
@@ -136,7 +137,6 @@
 								$status=$row[2];
 							?>
 							<a href="deletetask.php"><img src="images/delete.png"/></a>
-							
 							
 							<a href="viewtask.php?nama="'.$namatask.'"><?php echo $namatask; ?></a>
 							<?php
@@ -161,11 +161,10 @@
 			
 					
 							}
-							  
+							 $q=$_GET["q"]; 
 							?>
 							
-						
-						<a href="addtask.php">+ Add Task</a>
+						<a href="addtask.php?namakategori="'.$q.'">+ Add Task</a>
 				</div>	
 				</div>
 				</article>
@@ -175,14 +174,28 @@
 		<div id="secondary" class="widget-area">
 			<aside class="widget">	
 			<h1 class="widget-title">Categories</h1>
+			<?php
+			/*$result3 = mysqli_query($con,"SELECT * FROM kategori");
+							
+			while($row3 = mysqli_fetch_array($result3))
+			  {
 				
-					<form>
-						<select name="category" onchange="showUser(this.value)">
-						<option value="">Select a category:</option>
-						<option value="Projects">Projects</option>
-						<option value="Work">Work</option>
-						</select>
-					</form>
+				$namakategori=$row3[0];
+				?>
+				<input type='button' onclick='showUser(this.value);' value=<?php echo $namakategori; ?>>
+				<?php
+				echo "</br>";
+				
+			  }*/
+			?>
+			
+			<form>
+			<select name="category" onchange="showUser()">
+			<option value="">Select a category:</option>
+			<option value="Projects">Projects</option>
+			<option value="Work">Work</option>
+			</select>
+		</form>
 				
 				<div class="nav-previous"><a href="#openModal">+ Add category</a>
 					<div id="openModal" class="modalDialog">
