@@ -162,7 +162,6 @@
 			
 					
 							}
-							 $q=$_GET["q"]; 
 							?>
 							
 						<a href="addtask.php?namakategori=dummy">+ Add Task</a>
