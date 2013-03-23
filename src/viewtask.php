@@ -6,6 +6,18 @@
         <![endif]-->
         <title>ToDo</title>
         <link rel="stylesheet" type="text/css" media="all" href="css.css" />
+        <script>
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {// code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            
+        </script>
     </head>
 
     <body>
@@ -59,12 +71,12 @@
                                 echo '<br>attachment : <br><img src="' . $row['attachment'] . '">';
                             } else if (in_array($extension, $vidExtArray)) {
                                 ?>
-                            <br>Attachment : <br>
+                                <br>Attachment : <br>
                                 <video class="isi" width="320" height="240" controls>
-                                    <source src="<?php echo $row['attachment'];?>" type="video/<?php echo $extension;?>">
+                                    <source src="<?php echo $row['attachment']; ?>" type="video/<?php echo $extension; ?>">
                                     Your browser does not support the video tag.
                                 </video>
-                            <br>
+                                <br>
                                 <?php
                             } else {
                                 echo '<br>attachment : <a href="' . $row['attachment'] . '" target="_blank">' . $row['attachment'] . '</a>';
@@ -77,35 +89,35 @@
                             }
                             ?>
                             <div align="right">
-                            <?php
-                            echo "Jumlah Komentar : " . $row['jumlahKomentar'] . "<br>------------<br>";
-                            $query = 'SELECT * FROM komentar INNER JOIN user ON komentar.komentator=user.username WHERE namaTask="' . $task . '"ORDER BY  `komentar`.`timestamp` DESC';
-                            $result = mysqli_query($con, $query);
-                            while ($row2 = mysqli_fetch_array($result)) {
-                                $query2 = 'SELECT count(*) as hasil FROM `komentar` where komentator="' . $row2['komentator'] . '" AND namaTask="' . $task . '";';
+                                <?php
+                                echo "Jumlah Komentar : " . $row['jumlahKomentar'] . "<br>------------<br>";
+                                $query = 'SELECT * FROM komentar INNER JOIN user ON komentar.komentator=user.username WHERE namaTask="' . $task . '"ORDER BY  `komentar`.`timestamp` DESC';
+                                $result = mysqli_query($con, $query);
+                                while ($row2 = mysqli_fetch_array($result)) {
+                                    $query2 = 'SELECT count(*) as hasil FROM `komentar` where komentator="' . $row2['komentator'] . '" AND namaTask="' . $task . '";';
 
-                                $result2 = mysqli_query($con, $query2);
-                                $row3 = mysqli_fetch_array($result2);
-                                echo $row2['komentator'] . "<br>";
-                                echo $row3['hasil'] . " Comments<br>";
-                                echo '<img src="' . $row2['avatar'] . '"width = 50 height = 50>';
-                                echo "<br>";
-                                echo "on : " . $row2['timestamp'];
-                                echo "<br>";
-                                echo "Komentar : " . $row2['isikomentar'];
-                                echo "<br>";
-                                echo "<br>";
-                            }
-                            ?>
+                                    $result2 = mysqli_query($con, $query2);
+                                    $row3 = mysqli_fetch_array($result2);
+                                    echo $row2['komentator'] . "<br>";
+                                    echo $row3['hasil'] . " Comments<br>";
+                                    echo '<img src="' . $row2['avatar'] . '"width = 50 height = 50>';
+                                    echo "<br>";
+                                    echo "on : ".$row2['timestamp'][11].$row2['timestamp'][12].":".$row2['timestamp'][14].$row2['timestamp'][15]." ".$row2['timestamp'][8].$row2['timestamp'][9]."/".$row2['timestamp'][5].$row2['timestamp'][6];
+                                    echo "<br>";
+                                    echo "Komentar : " . $row2['isikomentar'];
+                                    echo "<br>";
+                                    echo "<br>";
+                                }
+                                ?>
                                 <form>
                                     Isi Komentar :
                                     <br>
                                     <textarea id="isikomentar" cols="50" rows="5"></textarea>
                                     <br>
-                                    <input type="button" value="submit">
+                                    <input type="button" value="submit" onclick="loadXMLdoc()">
                                 </form>
                             </div>
-<?php ?>
+                            <?php ?>
 
 
                         </article>		
