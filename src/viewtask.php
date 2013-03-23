@@ -67,40 +67,43 @@
                             echo "<br>Creator : " . $row['creatorTaskName'];
                             echo "<br>Assignee : ";
 
-                            $query4 = 'select * from usertotask where namaTask = "' . $task . '"';
+                            $query4 = 'select * from tasktoasignee where namaTask = "' . $task . '"';
                             $result4 = mysqli_query($con, $query4);
                             while ($row4 = mysqli_fetch_array($result4)) {
-                                echo '<a href="viewprofile.php?user=' . $row4['username'] . '">' . $row4['username'] . '</a>  , ';
+                                echo '<a href="viewprofile.php?user=' . $row4['asigneeName'] . '">' . $row4['asigneeName'] . '</a>';
                             };
                             echo "<br>";
 
-
-                            $ext = explode(".", $row['attachment']);
-                            $extension = $ext[count($ext) - 1];
-                            $picExtArray = array("png", "jpg", "jpeg", "bmp", "gif");
-                            $vidExtArray = array("mpg", "avi", "flv", "mp4", "mpeg", "ogg");
-                            if (in_array($extension, $picExtArray)) {
-                                echo '<br>attachment : <br><img src="' . $row['attachment'] . '">';
-                            } else if (in_array($extension, $vidExtArray)) {
-                                ?>
-                                <br>Attachment : <br>
-                                <video class="isi" width="320" height="240" controls>
-                                    <source src="<?php echo $row['attachment']; ?>" type="video/<?php echo $extension; ?>">
-                                    Your browser does not support the video tag.
-                                </video>
-                                <br>
-                                <?php
-                            } else {
-                                echo '<br>attachment : <a href="' . $row['attachment'] . '" target="_blank">' . $row['attachment'] . '</a>';
+                            $query5 = 'select * from attach where namaTask = "' . $task . '"';
+                            $result5 = mysqli_query($con, $query5);
+                            while ($row5 = mysqli_fetch_array($result5)) {
+                                $ext = explode(".", $row5['attachment']);
+                                $extension = $ext[count($ext) - 1];
+                                $picExtArray = array("png", "jpg", "jpeg", "bmp", "gif");
+                                $vidExtArray = array("mpg", "avi", "flv", "mp4", "mpeg", "ogg");
+                                if (in_array($extension, $picExtArray)) {
+                                    echo '<br>attachment : <br><img src="' . $row5['attachment'] . '">';
+                                } else if (in_array($extension, $vidExtArray)) {
+                                    ?>
+                                    <br>Attachment : <br>
+                                    <video class="isi" width="320" height="240" controls>
+                                        <source src="<?php echo $row5['attachment']; ?>" type="video/<?php echo $extension; ?>">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <br>
+                                    <?php
+                                } else {
+                                    echo '<br>attachment : <a href="' . $row['attachment'] . '" target="_blank">' . $row['attachment'] . '</a>';
+                                }
                             }
                             echo "<br>Deadline : " . $row['deadline'];
                             echo "<br>Status : " . $row['status'];
-                            if ($_SESSION['namauser'] == $row['creatorTaskName']) {
+                            if ($_SESSION['login'] == $row['creatorTaskName']) {
                                 echo '<br><a href="changetaskstatus.php?filter=-1&task=' . $row['namaTask'] . '"><input type="button" value="Ubah Status">' . "</a>";
                                 echo '<br><a href="edittask.php?&task=' . $row['namaTask'] . '"><input type="button" value="Edit Task">' . "</a>";
                             }
                             ?>
-                                <div align="right">
+                            <div align="right">
                                 <?php
                                 echo "Jumlah Komentar : " . $row['jumlahKomentar'] . "<br>------------<br>";
                                 $query = 'SELECT * FROM komentar INNER JOIN user ON komentar.komentator=user.username WHERE namaTask="' . $task . '"ORDER BY  `komentar`.`timestamp` DESC';
@@ -108,9 +111,9 @@
                                 $lastid = 0;
                                 while ($row2 = mysqli_fetch_array($result)) {
                                     $query2 = 'SELECT count(*) as hasil FROM `komentar` where komentator="' . $row2['komentator'] . '" AND namaTask="' . $task . '";';
-                                    if($row2['idKomentar']>$lastid){
-                                        $lastid=$row2['idKomentar'];
-                                        }
+                                    if ($row2['idKomentar'] > $lastid) {
+                                        $lastid = $row2['idKomentar'];
+                                    }
                                     $result2 = mysqli_query($con, $query2);
                                     $row3 = mysqli_fetch_array($result2);
                                     echo $row2['komentator'] . "<br>";
@@ -123,16 +126,16 @@
                                     echo "<br>";
                                     echo "<br>";
                                 }
-                                    echo '<div id="newtask"></div>'
+                                echo '<div id="newtask"></div>'
                                 ?>
                                 <form action="submitcomment.php" method="POST">
                                     Isi Komentar :
                                     <br>
-                                    <input type="hidden" name="lastid" value="<?php echo $lastid?>">
-                                    <input type="hidden" name="task" value="<?php echo $task?>">
+                                    <input type="hidden" name="lastid" value="<?php echo $lastid ?>">
+                                    <input type="hidden" name="task" value="<?php echo $task ?>">
                                     <textarea name="isikomentar" cols="50" rows="5"></textarea>
                                     <br>
-                                    
+
                                     <input type="submit" value="kirim!">
                                 </form>
                             </div>

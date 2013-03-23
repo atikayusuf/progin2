@@ -1,6 +1,7 @@
 <?php
 	//$q=$_GET["q"];
-		
+	
+
 	if(isset($_POST['btnsubmit'])) 
 	{
 		$data = $_POST['data'];

@@ -51,28 +51,10 @@
                             $row = mysqli_fetch_array($result);
                             echo "Nama Task : " . $row['namaTask'];
                             echo "<br>Creator : " . $row['creatorTaskName'];
-                            $ext = explode(".", $row['attachment']);
-                            $extension = $ext[count($ext) - 1];
-                            $picExtArray = array("png", "jpg", "jpeg", "bmp", "gif");
-                            $vidExtArray = array("mpg", "avi", "flv", "mp4", "mpeg", "ogg");
-                            if (in_array($extension, $picExtArray)) {
-                                echo '<br>attachment : <br><img src="' . $row['attachment'] . '">';
-                            } else if (in_array($extension, $vidExtArray)) {
-                                ?>
-                            <br>Attachment : <br>
-                                <video class="isi" width="320" height="240" controls>
-                                    <source src="<?php echo $row['attachment'];?>" type="video/<?php echo $extension;?>">
-                                    Your browser does not support the video tag.
-                                </video>
-                            <br>
-                                <?php
-                            } else {
-                                echo '<br>attachment : <a href="' . $row['attachment'] . '" target="_blank">' . $row['attachment'] . '</a>';
-                            }
                             echo "<br>Deadline : " . $row['deadline'];
                             echo "<br>Status : " . $row['status'];
-                            if ($_SESSION['namauser'] == $row['creatorTaskName']) {
-                                echo '<br><a href="deletetask.php?&task=' . $row['namaTask'] . '"><input type="button" value="Edit Task">' . "</a>";
+                            if ($_SESSION['login'] == $row['creatorTaskName']) {
+                                echo '<br><a href="deletetask2.php?&task=' . $row['namaTask'] . '"><input type="button" value="Delete Task">' . "</a>";
                             }
                             ?>
 <?php ?>
