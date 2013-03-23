@@ -3,7 +3,7 @@
 	/*session_start();
 	$user = $_SESSION["login"];
 	if ($user == ""){
-		header("Location:editprofilsukses.php");
+		header("Location:index.php");
 	}*/
 ?>
 <html dir="ltr" lang="en-US">

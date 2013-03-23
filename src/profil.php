@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <?php
-	/*session_start();
+	session_start();
 	$user = $_SESSION["login"];
 	if ($user == ""){
 		header("Location:index.php");
-	}*/
+	}
 ?>
 <html dir="ltr" lang="en-US">
 <head>
