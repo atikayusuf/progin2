@@ -44,7 +44,7 @@
                             <?php
                             session_start();
                             require_once("database.php");
-                            $task = $_GET['nama'];
+                            $task = $_GET['task'];
                             $con = connectDatabase();
                             $query = 'SELECT * FROM task WHERE namaTask="' . $task . '"';
                             $result = mysqli_query($con, $query);
@@ -72,39 +72,9 @@
                             echo "<br>Deadline : " . $row['deadline'];
                             echo "<br>Status : " . $row['status'];
                             if ($_SESSION['namauser'] == $row['creatorTaskName']) {
-                                echo '<br><a href="changetaskstatus.php?filter=-1&task=' . $row['namaTask'] . '"><input type="button" value="Ubah Status">' . "</a>";
-                                echo '<br><a href="edittask.php?&task=' . $row['namaTask'] . '"><input type="button" value="Edit Task">' . "</a>";
+                                echo '<br><a href="deletetask.php?&task=' . $row['namaTask'] . '"><input type="button" value="Edit Task">' . "</a>";
                             }
                             ?>
-                            <div align="right">
-                            <?php
-                            echo "Jumlah Komentar : " . $row['jumlahKomentar'] . "<br>------------<br>";
-                            $query = 'SELECT * FROM komentar INNER JOIN user ON komentar.komentator=user.username WHERE namaTask="' . $task . '"ORDER BY  `komentar`.`timestamp` DESC';
-                            $result = mysqli_query($con, $query);
-                            while ($row2 = mysqli_fetch_array($result)) {
-                                $query2 = 'SELECT count(*) as hasil FROM `komentar` where komentator="' . $row2['komentator'] . '" AND namaTask="' . $task . '";';
-
-                                $result2 = mysqli_query($con, $query2);
-                                $row3 = mysqli_fetch_array($result2);
-                                echo $row2['komentator'] . "<br>";
-                                echo $row3['hasil'] . " Comments<br>";
-                                echo '<img src="' . $row2['avatar'] . '"width = 50 height = 50>';
-                                echo "<br>";
-                                echo "on : " . $row2['timestamp'];
-                                echo "<br>";
-                                echo "Komentar : " . $row2['isikomentar'];
-                                echo "<br>";
-                                echo "<br>";
-                            }
-                            ?>
-                                <form>
-                                    Isi Komentar :
-                                    <br>
-                                    <textarea id="isikomentar" cols="50" rows="5"></textarea>
-                                    <br>
-                                    <input type="button" value="submit">
-                                </form>
-                            </div>
 <?php ?>
 
 

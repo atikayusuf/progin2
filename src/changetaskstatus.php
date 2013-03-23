@@ -20,7 +20,9 @@ $con = connectDatabase();
         }
         if($filter==-1)
             header("Location:viewtask.php?nama=".$task);
+        else if($filter==-2)
+            header("Location:dashboard.php");
         else
             header("Location:search-result.php?searchquery=".$searchquery."&filter=".$filter);
-
+            
 ?>
