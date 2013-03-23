@@ -3,24 +3,27 @@
 	require_once("getcateg.php");
 	$con= connectDatabase();
 	$result = mysql_query($con, "SELECT * FROM task WHERE namaKategori = '".$q."'");
-	echo "whoo";
+	
 	while($row = mysqli_fetch_array($result))
 	  {
 		
 		$namatask=$row[0];
 		$deadline=$row[1];
 		$status=$row[2];
-	  <input name ="data" type="checkbox" value="<?php echo $namatask;?>">	
+		?>
+		<a href="deletetask.php"><img src="images/delete.png"/></a>
+		<a href="viewtask.php?nama="'.$namatask.'"><?php echo $namatask; ?></a>
 		<?php
-
-		echo $namatask;
 		echo "<PRE></PRE>";
 		echo $deadline;
 		echo "<PRE></PRE>";
-		echo $status;
+		?>
+		<a href="changetaskstatus.php?task="'.$namatask.'"&filter=-2"><img src="images/check.png"/></a>
+		<?php echo $status; ?>
+		<?php
 		echo "<PRE></PRE>";
 		
-		$result2 = mysqli_query($con,"SELECT tag FROM tagging WHERE namaTask = '".$namatask."'");
+		$result2 = mysqli_query($con,"SELECT tag FROM tagging WHERE namaTask = '$namatask'");
 		while($row2 = mysqli_fetch_array($result2)){
 			$tag=$row2[0];
 			echo $tag;
@@ -30,12 +33,5 @@
 		
 		echo "<PRE></PRE>";
 		}
-			?>  
-			<input type="submit" name="btnsubmit" value="DELETE TASK">
-			<input type="submit" name="btnsubmit" value="MARK DONE">
-			</form>
-			<?php 
-			mysqli_free_result($result);
-			mysqli_free_result($result2);
-			mysqli_close($con);
+		
 ?>
