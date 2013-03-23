@@ -1,7 +1,3 @@
-<?php
-	session_start();
-?>
-
 <html>
 <head>
 	<title>ToDo</title>
@@ -35,23 +31,7 @@
 						</div>
 						</div>
 						
-			<div id="logincontent">Not a member yet?<a href="register.html"> Register now!</a></div>		
-	
-		
-				<script language="javascript">
-					function check(form)/*function to check userid & password*/
-					{
-					 /*the following code checkes whether the entered userid and password are matching*/
-					 if(form.userid.value == "myuserid" && form.pswrd.value == "mypswrd")
-					  {
-						window.open('index.html')/*opens the target page while Id & password matches*/
-					  }
-					 else
-					 {
-					   alert("Error Password or Username")/*displays error message*/
-					  }
-					}
-				</script>
+			<div id="logincontent">Not a member yet?<a href="register.php"> Register now!</a></div>		
 
 		<footer id="colophon">
 			<div id="site-generator">

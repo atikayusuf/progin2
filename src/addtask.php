@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php
+	session_start();
+	$user = $_SESSION["login"];
+	if ($user == ""){
+		header("Location:index.php");
+	}
+?>
 <html dir="ltr" lang="en-US">
 <head>
 	<!--[if lt IE 9]>
@@ -14,14 +21,18 @@
 	require_once("database.php");
 	$con = connectDatabase();
 	
-	$avatar = 
+	$resultavatar = mysqli_query($con,"SELECT avatar FROM user
+			WHERE username='$user'");
+	
+	$rowavatar = mysqli_fetch_array($resultavatar);
+	echo $rowavatar['avatar'];
 ?>
 <header>	
 			<div id="tes">
 			<br></br>
-			<a href="profil.html"><img id="avatar" src="images/avatar.jpg"></a>
-			<h3 id="username"><a href="profil.html">Arief Suharsono</a>
-			<h1 id="logo"><a href="dashboard.html"><img src="images/logo2.png"/></a>
+			<a href="profil.php"><img id="avatar" src=<?php echo $rowavatar['avatar'] ?>></a>
+			<h3 id="username"><a href="profil.php"><?php echo "$user"?></a>
+			<h1 id="logo"><a href="dashboard.php"><img src="images/logo2.png"/></a>
 			<form name="formsearch" action="search.php" method="get">
 			<input name="searchquery" size="20" type="text" maxlength="20">
 			<select name="FilterSearch">
@@ -30,7 +41,7 @@
 			<option value="2">Judul Kategori</option>
 			<option value="3">Task</option></select><img src="images/search-icon.png" onclick='SearchDatabase();'>
 			</form>
-			<h3 id="logout"><a href="index.html">Logout</a>
+			<h3 id="logout"><a href="logout.php">Logout</a>
 			</div>
 	</header>
 <div id="page" >
