@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php
+	/*session_start();
+	$user = $_SESSION["login"];
+	if ($user == ""){
+		header("Location:editprofilsukses.php");
+	}*/
+?>
 <html dir="ltr" lang="en-US">
 
 
@@ -156,63 +163,33 @@ return false;
 					require_once("database.php");
 					$con= connectDatabase();
 					
-					/*$fullname = $_REQUEST['fullname'];
+					$fullname = $_REQUEST['fullname'];
 					$birth = $_REQUEST['tanggalLahir'];
 					$pass = $_REQUEST['password'];
 					
 					if (!empty($fullname)) {
-						print "$fullname<br>";
+						print "Fullname changed<br>";
 						}
 
 					if (!empty($birth)) {
-					print "$birth<br>";
+					print "Birthdate changed<br>";
 					}
 
 					if (!empty($pass)) {
-					print "$pass<br>";
+					print "Password changed";
 					}
-					
-					/*if(strlen(isset(!empty($_REQUEST['fullname']))) > 0) {
-					   $fullname = $_REQUEST['fullname'];
-					   echo "FULLNAME: <br />".$fullname;
-					} else {
-					  echo "Nothing was entered into ".$_REQUEST['fullname']."!";
-					}
-					
-					if(strlen(isset(!empty($_REQUEST['tanggalLahir']))) > 0) {
-					   $birth = $_REQUEST['tanggalLahir'];
-					   echo "FULLNAME: <br />".$birth;
-					} else {
-					  echo "Nothing was entered into ".$_REQUEST['tanggalLahir']."!";
-					}
-					
-					if(strlen(isset(!empty($_REQUEST['password']))) > 0) {
-					   $pass = $_REQUEST['password'];
-					   echo "NEW PASSWORD: <br />".$pass;
-					} else {
-					  echo "Nothing was entered into ".$_REQUEST['password']."!";
-					}
-					*/
 					
 					if (isset($_POST['btnsubmit'] )) {
 						$fullname = $_POST['fullname'];
-						//$avatar = $_POST['avatar'];
+						$avatar = $_POST['avatar'];
 						$pass = $_POST['password'];
-						//$birth = $_POST['tanggalLahir'];
+						$birth = $_POST['tanggalLahir'];
 
-						$con=mysqli_connect("localhost","progin","progin","progin_405_13510055");
-						
-						
-						// Check connection
-						if (mysqli_connect_errno($con))
-						  {
-						  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-						  }
 					
-					$query= "UPDATE user SET fullname='".$fullname."' WHERE username='atikayusuf'";
+					$query= "UPDATE user SET fullname='".$fullname."',password = '".$pass."' , tanggalLahir = '".$birth."' , avatar = '".$avatar."' WHERE username='".$user."'";
 						  
-					mysqli_query($conn, $query);
-					$num = mysqli_affected_rows($conn);
+					mysqli_query($con, $query);
+					$num = mysqli_affected_rows($con);
 
 					if ($num > 0) {
 						echo "Profile Edited";

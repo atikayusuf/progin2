@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php
+	/*session_start();
+	$user = $_SESSION["login"];
+	if ($user == ""){
+		header("Location:profil.php");
+	}*/
+?>
 <html dir="ltr" lang="en-US">
 <head>
 	<!--[if lt IE 9]>
@@ -45,7 +52,7 @@
 						require_once("database.php");
 							$con= connectDatabase();
 						  
-						$result = mysqli_query($con,"SELECT * FROM user");
+						$result = mysqli_query($con,"SELECT * FROM user WHERE username = '".$user."'");
 
 						while($row = mysqli_fetch_array($result))
 						  {
@@ -84,9 +91,7 @@
 							}
 						  }
 							
-						mysqli_close($con);
-						mysqli_free_result($result);
-						mysqli_free_result($result2);
+			
 					?>
 					
 					

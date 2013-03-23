@@ -9,8 +9,6 @@
 	$birth = $_POST["birth"];
 	$avatar = $_FILES["foto"]["name"];
 	
-	echo "$avatar";
-	
 	mysqli_query($con,"INSERT INTO `user`(`username`, `email`, `fullname`, `avatar`, `tanggalLahir`, `password`)
 		VALUES ('$user','$email','$fullname','$avatar','$birth','$pass')");
 		session_start();

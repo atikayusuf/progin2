@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2013 at 04:44 PM
+-- Generation Time: Mar 23, 2013 at 10:44 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -32,6 +32,13 @@ CREATE TABLE IF NOT EXISTS `attach` (
   KEY `namaTask` (`namaTask`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `attach`
+--
+
+INSERT INTO `attach` (`namaTask`, `attachment`) VALUES
+('Tugas_Besar_3', 'avatar.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -57,6 +64,14 @@ CREATE TABLE IF NOT EXISTS `kategori` (
   PRIMARY KEY (`namaKategori`),
   KEY `creatorKategoriName` (`creatorKategoriName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kategori`
+--
+
+INSERT INTO `kategori` (`namaKategori`, `creatorKategoriName`) VALUES
+('Pemrograman_Internet', 'ariefsuharsono'),
+('Sistem_Terdistribusi', 'fabrianoktavino');
 
 -- --------------------------------------------------------
 
@@ -87,6 +102,14 @@ CREATE TABLE IF NOT EXISTS `tagging` (
   KEY `namaTask` (`namaTask`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tagging`
+--
+
+INSERT INTO `tagging` (`namaTask`, `tag`) VALUES
+('Tugas_Besar_3', 'php'),
+('Tugas_Besar_3', 'ajax');
+
 -- --------------------------------------------------------
 
 --
@@ -105,6 +128,13 @@ CREATE TABLE IF NOT EXISTS `task` (
   KEY `creatorTaskName` (`creatorTaskName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `task`
+--
+
+INSERT INTO `task` (`namaTask`, `deadline`, `status`, `creatorTaskName`, `namaKategori`, `jumlahKomentar`) VALUES
+('Tugas_Besar_3', '2013-03-23', 'Belum_Selesai', 'ariefsuharsono', 'Pemrograman_Internet', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -117,6 +147,15 @@ CREATE TABLE IF NOT EXISTS `tasktoasignee` (
   KEY `namaTask` (`namaTask`),
   KEY `asigneeName` (`asigneeName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tasktoasignee`
+--
+
+INSERT INTO `tasktoasignee` (`namaTask`, `asigneeName`) VALUES
+('Tugas_Besar_3', 'atikayusuf'),
+('Tugas_Besar_3', 'fabrianoktavino'),
+('Tugas_Besar_3', 'ariefsuharsono');
 
 -- --------------------------------------------------------
 
@@ -134,6 +173,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`username`, `email`, `fullname`, `avatar`, `tanggalLahir`, `password`) VALUES
+('ariefsuharsono', 'arief.suharsono@hotmail.com', 'Arief Suharsono', 'avatar.jpg', '1991-04-08', 'ariefsuharsono'),
+('atikayusuf', 'atika.yusuf@gmail.com', 'Atika Yusuf', 'avatar.jpg', '1992-10-29', 'atikayusuf'),
+('fabrianoktavino', 'fabrian.oktavino@yahoo.com', 'Fabrian Oktavino', 'avatar.jpg', '1992-10-07', 'fabrianoktavino');
+
 -- --------------------------------------------------------
 
 --
@@ -146,6 +194,15 @@ CREATE TABLE IF NOT EXISTS `usertotask` (
   KEY `username` (`username`),
   KEY `namaTask` (`namaTask`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `usertotask`
+--
+
+INSERT INTO `usertotask` (`username`, `namaTask`) VALUES
+('ariefsuharsono', 'Tugas_Besar_3'),
+('atikayusuf', 'Tugas_Besar_3'),
+('fabrianoktavino', 'Tugas_Besar_3');
 
 --
 -- Constraints for dumped tables
