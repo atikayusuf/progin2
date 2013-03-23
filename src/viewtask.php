@@ -63,6 +63,16 @@
                             $row = mysqli_fetch_array($result);
                             echo "Nama Task : " . $row['namaTask'];
                             echo "<br>Creator : " . $row['creatorTaskName'];
+                            echo "<br>Assignee : ";
+                            
+                            $query4 = 'select * from usertotask where namaTask = "'.$task.'"';
+                            $result4 = mysqli_query($con, $query4);
+                            while($row4 = mysqli_fetch_array($result4)) {
+                                echo '<a href="viewprofile.php?user='.$row4['username'].'">'.$row4['username'].'</a>  , ';
+                            };
+                            echo "<br>";
+                            
+                            
                             $ext = explode(".", $row['attachment']);
                             $extension = $ext[count($ext) - 1];
                             $picExtArray = array("png", "jpg", "jpeg", "bmp", "gif");
