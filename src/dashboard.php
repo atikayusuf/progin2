@@ -76,15 +76,10 @@
 					<div class="entry-content">
 					<form action="dashboard.php" method="post">
 					<?php
-							$con=mysqli_connect("localhost","progin","progin","progin_405_13510055");
+							require_once("database.php");
+							$con= connectDatabase();
 							
 							
-							// Check connection
-							if (mysqli_connect_errno($con))
-							  {
-							  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-							  }
-							  
 							$result = mysqli_query($con,"SELECT * FROM task");
 							
 							while($row = mysqli_fetch_array($result))
@@ -119,11 +114,7 @@
 							<input type="submit" name="btnsubmit" value="DELETE TASK">
 							<input type="submit" name="btnsubmit" value="MARK DONE">
 							</form>
-							<?php 
-								mysqli_free_result($result);
-								mysqli_free_result($result2);
-								mysqli_close($con);
-							?>
+							
 						
 				</div>	
 				</div>

@@ -40,16 +40,10 @@
 		<div id="primary">
 			<div id="content" role="main">
 					<article class="post">	
-					
+					<form action="editprofil.php" method="post">
 					<?php
-						$con=mysqli_connect("localhost","progin","progin","progin_405_13510055");
-						
-						
-						// Check connection
-						if (mysqli_connect_errno($con))
-						  {
-						  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-						  }
+						require_once("database.php");
+							$con= connectDatabase();
 						  
 						$result = mysqli_query($con,"SELECT * FROM user");
 
@@ -91,10 +85,13 @@
 						  }
 							
 						mysqli_close($con);
+						mysqli_free_result($result);
+						mysqli_free_result($result2);
 					?>
 					
-					<input type="submit" name="btnsubmit" value="EDIT PROFILE">
 					
+					<input type="submit" name="btnsubmit" value="EDIT PROFILE">
+					</form>
 					
 					</article>		
 				</div>			

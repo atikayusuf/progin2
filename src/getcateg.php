@@ -1,12 +1,7 @@
 <?php
 	$q=$_GET["q"];
-	$con=mysqli_connect("localhost","progin","progin","progin_405_13510055");
-	
-	if (mysqli_connect_errno($con))
-	 {
-		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	 }
-
+	require_once("getcateg.php");
+	$con= connectDatabase();
 	$result = mysql_query($con, "SELECT * FROM task WHERE namaKategori = '".$q."'");
 	echo "whoo";
 	while($row = mysqli_fetch_array($result))
