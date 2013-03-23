@@ -3,7 +3,7 @@
 	/*session_start();
 	$user = $_SESSION["login"];
 	if ($user == ""){
-		header("Location:addcateg.php");
+		header("Location:index.php");
 	}*/
 
 	$q=$_POST["q"];

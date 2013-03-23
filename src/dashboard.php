@@ -3,7 +3,7 @@
 /*	session_start();
 	$user = $_SESSION["login"];
 	if ($user == ""){
-		header("Location:dashboard.php");
+		header("Location:index.php");
 	}*/
 ?>
 <html dir="ltr" lang="en-US">
@@ -14,13 +14,9 @@
 	<title>ToDo</title>
 	<link rel="stylesheet" type="text/css" media="all" href="css.css" />
 	<script>
-		function showUser(str)
+		function showUser()
 		{
-			if (str=="")
-			{
-			document.getElementById("tasklist").innerHTML="";
-			return;
-			} 
+			var xmlhttp;
 			if (window.XMLHttpRequest)
 			{// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp=new XMLHttpRequest();
@@ -36,12 +32,17 @@
 			document.getElementById("tasklist").innerHTML=xmlhttp.responseText;
 			}
 			}
-			xmlhttp.open("GET","getcateg.php?q="+str,true);
+			xmlhttp.open("GET","getcateg.php?q="+document.forms["form"].elements["category"].value,true);
 			xmlhttp.send();
 		}
 		
 		function addcateg(str)
 		{
+			if (str=="")
+			{
+			document.getElementById("tasklist").innerHTML="";
+			return;
+			} 
 			
 			if (window.XMLHttpRequest)
 			{// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -65,14 +66,32 @@
 </head>
 
 <body>
+<?php
+	require_once("database.php");
+	$con = connectDatabase();
+	
+	$resultavatar = mysqli_query($con,"SELECT avatar FROM user
+			WHERE username='$user'");
+	
+	$rowavatar = mysqli_fetch_array($resultavatar);
+?>
 <header>	
-			
-<div id="tes">
-<br></br>
-<h1 id="logo"><a href="dashboard.html"><img src="images/logo2.png"/></a>
-<input name="search" size="30" type="text" maxlength="20"><img src="images/search-icon.png"/>
-</div>
-</header>
+			<div id="tes">
+			<br></br>
+			<a href="profil.php"><img id="avatar" src=<?php echo $rowavatar['avatar'] ?>></a>
+			<h3 id="username"><a href="profil.php"><?php echo "$user"?></a>
+			<h1 id="logo"><a href="dashboard.php"><img src="images/logo2.png"/></a>
+			<form name="formsearch" action="search.php" method="get">
+			<input name="searchquery" size="30" type="text" maxlength="30">
+			<select name="filtersearch">
+			<option value="0" selected="selected">Semua</option>
+			<option value="1">Username</option>
+			<option value="2">Judul Kategori</option>
+			<option value="3">Task</option></select><img src="images/search-icon.png" onclick='SearchDatabase();'>
+			</form>
+			<h3 id="logout"><a href="logout.php">Logout</a>
+			</div>
+	</header>
 <div id="page" >
 	<header id="branding">
 		<hgroup>
@@ -104,9 +123,9 @@
 					<article class="post">
 					<div class="entry-content">
 					
-					<form action="markdone.php" method="post">
+				
 					<?php
-							equire_once("database.php");
+							require_once("database.php");
 							$con= connectDatabase();	
 							$result = mysqli_query($con,"SELECT * FROM task");
 							
@@ -118,7 +137,6 @@
 								$status=$row[2];
 							?>
 							<a href="deletetask.php"><img src="images/delete.png"/></a>
-							
 							
 							<a href="viewtask.php?nama="'.$namatask.'"><?php echo $namatask; ?></a>
 							<?php
@@ -143,11 +161,10 @@
 			
 					
 							}
-							  
+							 $q=$_GET["q"]; 
 							?>
 							
-						
-						<a href="addtask.php">+ Add Task</a>
+						<a href="addtask.php?namakategori="'.$q.'">+ Add Task</a>
 				</div>	
 				</div>
 				</article>
@@ -157,14 +174,28 @@
 		<div id="secondary" class="widget-area">
 			<aside class="widget">	
 			<h1 class="widget-title">Categories</h1>
+			<?php
+			/*$result3 = mysqli_query($con,"SELECT * FROM kategori");
+							
+			while($row3 = mysqli_fetch_array($result3))
+			  {
 				
-					<form>
-						<select name="category" onchange="showUser(this.value)">
-						<option value="">Select a category:</option>
-						<option value="Projects">Projects</option>
-						<option value="Work">Work</option>
-						</select>
-					</form>
+				$namakategori=$row3[0];
+				?>
+				<input type='button' onclick='showUser(this.value);' value=<?php echo $namakategori; ?>>
+				<?php
+				echo "</br>";
+				
+			  }*/
+			?>
+			
+			<form>
+			<select name="category" onchange="showUser()">
+			<option value="">Select a category:</option>
+			<option value="Projects">Projects</option>
+			<option value="Work">Work</option>
+			</select>
+		</form>
 				
 				<div class="nav-previous"><a href="#openModal">+ Add category</a>
 					<div id="openModal" class="modalDialog">
