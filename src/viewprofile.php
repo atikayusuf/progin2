@@ -1,11 +1,4 @@
 <!DOCTYPE html>
-<?php
-	/*session_start();
-	$user = $_SESSION["login"];
-	if ($user == ""){
-		header("Location:profil.php");
-	}*/
-?>
 <html dir="ltr" lang="en-US">
 <head>
 	<!--[if lt IE 9]>
@@ -20,14 +13,14 @@
 			
 			<div id="tes">
 			<br></br>
-			<h1 id="logo"><a href="dashboard.html"><img src="images/logo2.png"/></a>
+			<h1 id="logo"><a href="dashboard.php"><img src="images/logo2.png"/></a>
 			<input name="search" size="30" type="text" maxlength="20"><img src="images/search-icon.png"/>
 			</div>
 	</header>
 <div id="page" >
 	<header id="branding">
 		<hgroup>
-			<h1 id="site-title">              <a href="dashboard.html"></a></h1>
+			<h1 id="site-title">              <a href="dashboard.php"></a></h1>
 			<h2 id="site-description">            </h2>
 		</hgroup>
 
@@ -47,18 +40,24 @@
 		<div id="primary">
 			<div id="content" role="main">
 					<article class="post">	
-					<form action="editprofil.php" method="post">
+					
 					<?php
-						require_once("database.php");
-							$con= connectDatabase();
+                                                        require_once("database.php");
+							$con=connectDatabase();
+						$usr=$_GET['user'];
+						// Check connection
+						if (mysqli_connect_errno($con))
+						  {
+						  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+						  }
 						  
-						$result = mysqli_query($con,"SELECT * FROM user WHERE username = '".$user."'");
+						$result = mysqli_query($con,"SELECT * FROM user WHERE username='$usr'");
 
 						while($row = mysqli_fetch_array($result))
 						  {
 							  echo "USERNAME	: ";
 							  echo $row['username'];
-							 echo "<PRE></PRE>";
+							  echo "<PRE></PRE>";
 							  echo "EMAIL		: ";
 							  echo $row['email'];
 							  echo "<PRE></PRE>";
@@ -67,13 +66,13 @@
 							  echo "<PRE></PRE>";
 							  echo "BIRTHDATE	: ";
 							  echo $row['tanggalLahir'];
-							 echo "<PRE></PRE>";
-							  echo "<img src=".$row[avatar].">";
+							  echo "<PRE></PRE>";
+							  echo "<img src=".$row['avatar'].">";
 							  echo "<PRE></PRE>";
 							
-							echo "UNCOMPLETED TASKS	:";
+							 echo "UNCOMPLETED TASKS	:";
 							 echo "<PRE></PRE>";
-							$result2 = mysqli_query($con,"SELECT task.namaTask FROM task INNER JOIN usertotask ON task.namaTask = usertotask.namaTask WHERE task.status = 'undone'");
+							$result2 = mysqli_query($con,"SELECT task.namaTask FROM task INNER JOIN usertotask ON task.namaTask = usertotask.namaTask WHERE task.status = 'undone' AND username='$usr'");
 							while($row2 = mysqli_fetch_array($result2)){
 								$undonetask=$row2[0];
 								echo $undonetask;
@@ -83,7 +82,7 @@
 							echo "COMPLETED TASKS	:";
 							 echo "<PRE></PRE>";
 							
-							$result3 = mysqli_query($con,"SELECT task.namaTask FROM task INNER JOIN usertotask ON task.namaTask = usertotask.namaTask WHERE task.status = 'done'");
+							$result3 = mysqli_query($con,"SELECT task.namaTask FROM task INNER JOIN usertotask ON task.namaTask = usertotask.namaTask WHERE task.status = 'done' AND username='$usr'");
 							while($row3 = mysqli_fetch_array($result3)){
 								$donetask=$row3[0];
 								echo $donetask;
@@ -91,12 +90,9 @@
 							}
 						  }
 							
-			
+						mysqli_close($con);
 					?>
 					
-					
-					<input type="submit" name="btnsubmit" value="EDIT PROFILE">
-					</form>
 					
 					</article>		
 				</div>			
