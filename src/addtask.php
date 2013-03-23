@@ -8,6 +8,29 @@
 ?>
 <html dir="ltr" lang="en-US">
 <head>
+	<script>
+		function autocompleteuser()
+		{
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		  {// code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		  }
+		else
+		  {// code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		xmlhttp.onreadystatechange=function()
+		  {
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+			document.getElementById("completeasignee").innerHTML=xmlhttp.responseText;
+			}
+		  }
+		xmlhttp.open("POST","autocompleteuser.php?username="+document.getElementById("assignee1").value,true);
+		xmlhttp.send();
+		}
+	</script>
 	<!--[if lt IE 9]>
 	<script src="html5.js" type="text/javascript"></script>
 	<![endif]-->
@@ -73,9 +96,10 @@
 					<article class="post">	
 						
 						
-							<form action="dashboard.html" method="post">
+							<form id="form" action="insertdatabasetask.php" method="post" enctype='multipart/form-data'>
 							<strong>New Task </strong> <br />
-							<input name="newtask" size="30" type="text" onkeyup="validasinamatask(this)" >
+							<input id="namatask" name="newtask" size="30" type="text" onkeyup="validasinamatask(this.value)" >
+							<div id="namatask_salah"></div>
 							<br/><br/>
 						
 							<strong>Deadline</strong> <br />
@@ -83,7 +107,8 @@
 							<br/><br/>
 							
 							<strong>Assignee </strong> <br />
-							<input name="assignee" type="text" size="30" maxlength="20"> 
+							<input id="assignee1" name="assignee1" type="text" size="30" maxlength="20">
+							Assignee : <div id="completeasignee"> </div>
 							<br/><br/>
 							
 							<strong>Comment </strong> <br />
@@ -96,9 +121,15 @@
 							
 							
 							<p>Upload file:
-							<input type="file" name="datafile" size="40">
+							<input id="file1" name="file1" type="file" size="40">
 							</p>
-							<input type="submit" name="btnsubmit" value="Add Task">
+							<p>Upload file:
+							<input id="file2" name="file2" type="file" size="40">
+							</p>
+							<p>Upload file:
+							<input id="file3" name="file3" type="file" size="40">
+							</p>
+							<input id="btnsubmit" type="submit" name="btnsubmit" value="Add Task">
 							</form>
 									
 					</article>		

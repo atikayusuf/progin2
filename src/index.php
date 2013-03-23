@@ -1,3 +1,12 @@
+<?php
+	session_start();
+	$msg = "";
+	if (!isset($_SESSION["infologin"])){
+		$msg = "";
+	} else {
+		$msg = $_SESSION["infologin"];
+	}
+?>
 <html>
 <head>
 	<title>ToDo</title>
@@ -21,7 +30,7 @@
 							<p>Password  <input type="password" name="pass"/></p>
 							<input type="submit" value="Login"/>
 							<input type="reset" value="Cancel"/>
-							<div id="salah_login"></div>
+							<div id="salah_login"><?php echo $msg;?></div>
 							</form>
 						</div>
 						

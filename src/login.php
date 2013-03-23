@@ -1,4 +1,7 @@
 <?php
+	session_destroy();
+	session_start();
+	$_SESSION["infologin"] = "";
 	require_once("database.php");
 	$con = connectDatabase();
 	
@@ -12,11 +15,12 @@
 	$rowuser = mysqli_fetch_array($resultuser);
 	$rowpassword = mysqli_fetch_array($resultpass);
 	if(($rowuser['username'] == $user) && ($rowpassword['password'] == $pass)){
-		session_start();
+		//session_start();
 		$_SESSION["login"] = $user;
+		$_SESSION["infologin"] = "";
 		header("Location:dashboard.php");
 	} else {
-		echo "login gagal, silahkan ulangi";
+		$_SESSION["infologin"] = "login gagal, silahkan ulangi";
 		header("Location:index.php");
 	}
 ?>
