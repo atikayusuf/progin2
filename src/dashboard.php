@@ -106,7 +106,7 @@
 					
 					<form action="markdone.php" method="post">
 					<?php
-							require_once("database.php");
+							equire_once("database.php");
 							$con= connectDatabase();	
 							$result = mysqli_query($con,"SELECT * FROM task");
 							
@@ -117,15 +117,18 @@
 								$deadline=$row[1];
 								$status=$row[2];
 							?>
-							<a href="deltask.php"><img src="images/delete.png"/></a>
-							<input name ="data[]" type="checkbox" value="<?php echo $namatask;?>">	
+							<a href="deletetask.php"><img src="images/delete.png"/></a>
 							
-							<a href="task.php"><?php echo $namatask; ?></a>
+							
+							<a href="viewtask.php?nama="'.$namatask.'"><?php echo $namatask; ?></a>
 							<?php
 							echo "<PRE></PRE>";
 							echo $deadline;
 							echo "<PRE></PRE>";
-							echo $status;
+							?>
+							<a href="changetaskstatus.php?task="'.$namatask.'"&filter=-2"><img src="images/check.png"/></a>
+							<?php echo $status; ?>
+							<?php
 							echo "<PRE></PRE>";
 							
 							$result2 = mysqli_query($con,"SELECT tag FROM tagging WHERE namaTask = '$namatask'");
@@ -137,12 +140,12 @@
 							}
 							
 							echo "<PRE></PRE>";
-							  }
+			
+					
+							}
+							  
 							?>
 							
-							
-							<input type="submit" name="btnsubmit" value="MARK AS DONE">
-						</form>
 						
 						<a href="addtask.php">+ Add Task</a>
 				</div>	

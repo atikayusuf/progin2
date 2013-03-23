@@ -11,9 +11,6 @@
 	$attachment3 = $_FILES["file3"]["name"];
 	$deadline = $_POST["deadline"];
 	$assignee1 = $_POST["assignee1"];
-	$assignee2 = $_POST["assignee2"];
-	$assignee3 = $_POST["assignee3"];
-	$comment = $_POST["comment"];
 	$tag = $_POST["tag"];
 	
 	mysqli_query($con,"INSERT INTO `task`(`namaTask`, `deadline`, `status`, `creatorTaskName`, `namaKategori`, `jumlahKomentar`)
@@ -29,15 +26,7 @@
 	mysqli_query($con,"INSERT INTO `attach`(`namaTask`, `attachment`) VALUES ('$namatask','$attachment3')");
 	}
 	
-	if ($assignee1 != ""){
 	mysqli_query($con,"INSERT INTO `tasktoasignee`(`namaTask`, `asigneeName`) VALUES ('$namatask','$asignee1')");
-	}
-	if ($assignee2 != ""){
-	mysqli_query($con,"INSERT INTO `tasktoasignee`(`namaTask`, `asigneeName`) VALUES ('$namatask','$asignee2')");
-	}
-	if ($assignee2 != ""){
-	mysqli_query($con,"INSERT INTO `tasktoasignee`(`namaTask`, `asigneeName`) VALUES ('$namatask','$asignee3')");
-	}
 	
 	mysqli_query($con,"INSERT INTO `tagging`(`namaTask`, `tag`) VALUES ('$namatask','$tag')");
 	header("Location:rinciantask.php");

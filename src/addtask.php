@@ -44,7 +44,7 @@
 	require_once("database.php");
 	$con = connectDatabase();
 	
-	$resultavatar = mysqli_query($con,"SELECT avatar FROM user
+	$resultavatar = mysqli_query($con,"SELECT * FROM user
 			WHERE username='$user'");
 	
 	$rowavatar = mysqli_fetch_array($resultavatar);
@@ -52,10 +52,10 @@
 <header>	
 			<div id="tes">
 			<br></br>
-			<a href="profil.php"><img id="avatar" src=<?php echo $rowavatar['avatar'] ?>></a>
+			<a href="profil.php"><img id="avatar" src="<?php echo $rowavatar['avatar']?>"></a>
 			<h3 id="username"><a href="profil.php"><?php echo "$user"?></a>
 			<h1 id="logo"><a href="dashboard.php"><img src="images/logo2.png"/></a>
-			<form name="formsearch" action="search.php" method="get">
+			<form name="formsearch" action="search-result.php" method="get">
 			<input name="searchquery" size="30" type="text" maxlength="30">
 			<select name="filtersearch">
 			<option value="0" selected="selected">Semua</option>
@@ -108,7 +108,6 @@
 							
 							<strong>Assignee </strong> <br />
 							<input id="assignee1" name="assignee1" type="text" size="30" maxlength="20">
-							Assignee : <div id="completeasignee"> </div>
 							<br/><br/>
 							
 							<strong>Comment </strong> <br />
